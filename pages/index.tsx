@@ -10,6 +10,6 @@ const Container = styled.div<ContainerProps>`
 
 export default function Home () {
   return (
-    <Container theme="dark">Fuck!</Container>
+    <Container theme="dark">Fuck</Container>
   );
 }
