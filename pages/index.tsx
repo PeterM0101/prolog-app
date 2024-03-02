@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { SidebarNavigation } from "@/components/SidebarNavigation";
 
 interface ContainerProps {
   theme?: "dark" | "light";
@@ -11,6 +12,8 @@ const Container = styled.div<ContainerProps>`
 
 export default function Home () {
   return (
-    <Container theme="dark">Home</Container>
+    <Container theme="dark">Home
+      <SidebarNavigation/>
+    </Container>
   );
 }
