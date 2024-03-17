@@ -2,13 +2,16 @@ import type { StorybookConfig } from "@storybook/nextjs";
 
 const config: StorybookConfig = {
   stories: [
-    "../**/*.stories.mdx", "../**/*.stories.tsx"
+    "../**/*.mdx",
+    "../**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-onboarding",
     "@storybook/addon-interactions",
+    "@storybook/addon-actions",
+    "@storybook/addon-styling"
   ],
   framework: {
     name: "@storybook/nextjs",
@@ -17,6 +20,17 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
+  staticDirs: ["../public", { from: "../public/fonts", to: "/public/fonts" }],
+  // webpackFinal: async (config) => {
+  //   if (config.resolve && config.resolve.alias) {
+  //     config.resolve.alias = config.resolve.alias || {};
+  //
+  //     // Cast the alias property to an index signature type.
+  //     const alias = config.resolve.alias as { [index: string]: string };
+  //     alias["next/router"] = require.resolve("../__mocks__/next/router.tsx");
+  //   }
+  //   return config;
+  // },
+
 };
 export default config;
-

@@ -1,12 +1,13 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import { Head, Html, Main, NextScript } from "next/document";
+import { lato } from "@/pages/_app";
 
-export default function Document() {
+export default function Document () {
   return (
-    <Html lang="en">
-      <Head />
+    <Html lang="en" className={`${lato.variable}, Arial, font-sans`}>
+      <Head/>
       <body>
-        <Main />
-        <NextScript />
+      <Main/>
+      <NextScript/>
       </body>
     </Html>
   );
