@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import Layout from "../components/layout/layout";
+import Layout from "@/components/layout/layout";
 
 function Issues () {
   return (

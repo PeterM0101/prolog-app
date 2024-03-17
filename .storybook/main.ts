@@ -1,4 +1,5 @@
 import type { StorybookConfig } from "@storybook/nextjs";
+// import path from "path";
 
 const config: StorybookConfig = {
   stories: [
@@ -24,11 +25,14 @@ const config: StorybookConfig = {
   // webpackFinal: async (config) => {
   //   if (config.resolve && config.resolve.alias) {
   //     config.resolve.alias = config.resolve.alias || {};
-  //
-  //     // Cast the alias property to an index signature type.
-  //     const alias = config.resolve.alias as { [index: string]: string };
-  //     alias["next/router"] = require.resolve("../__mocks__/next/router.tsx");
-  //   }
+  //     config.resolve.alias = {
+  //       ...config.resolve.alias,
+  //       "@/config": path.resolve(__dirname, "/config"),
+  //     };
+  // Cast the alias property to an index signature type.
+  // const alias = config.resolve.alias as { [index: string]: string };
+  // alias["next/router"] = require.resolve("../__mocks__/next/router.tsx");
+  // }
   //   return config;
   // },
 

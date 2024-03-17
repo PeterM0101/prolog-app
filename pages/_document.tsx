@@ -1,5 +1,5 @@
 import { Head, Html, Main, NextScript } from "next/document";
-import { lato } from "@/pages/_app";
+import { lato } from "./_app";
 
 export default function Document () {
   return (

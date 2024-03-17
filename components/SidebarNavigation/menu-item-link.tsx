@@ -1,7 +1,6 @@
 import Link from "next/link";
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import { useRouter } from "next/router";
 
 type MenuItemProps = {
   text: string;
@@ -24,6 +23,7 @@ export const BaseListItem = styled.li`
     margin-top: ${({ theme }) => theme.spacing[1]};
     padding: 0 ${({ theme }) => theme.spacing[3]};
     background: transparent;
+    outline: none;
     color: ${({ theme }) => theme.colors.gray[100]};
 
     &:first-child {
@@ -56,7 +56,7 @@ export function MenuItemLink ({
   isActive,
   isCollapsed,
 }: MenuItemProps) {
-  const router = useRouter();
+
   return (
     <ListItem $isActive={isActive}>
       <LinkItem href={href}>

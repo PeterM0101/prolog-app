@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Routes } from "../../config/routes";
 import styled from "styled-components";
 import Logo from "./Logo";
 import Image from "next/image";
 import Close from "../../public/icons/close.svg";
 import Menu from "../../public/icons/menu.svg";
 import { useRouter } from "next/router";
-import { MenuItemLink } from "./menu-item-link";
-import { MenuItemButton } from "./menu-item-button";
 import { Icons } from "../icons";
+import { Routes } from "../../config/routes";
+import { MenuItemButton } from "@/components/SidebarNavigation/menu-item-button";
+import { MenuItemLink } from "@/components/SidebarNavigation/menu-item-link";
 
 const menuItems = [
   { text: "Projects", icon: <Icons.projects/>, href: Routes.projects },
@@ -138,7 +138,7 @@ export function SidebarNavigation () {
   const router = useRouter();
   return (
     <div>
-      <SidebarContainer $isSidebarCollapsed={isSidebarCollapsed}>
+      <SidebarContainer $isSidebarCollapsed={isSidebarCollapsed} data-testid={"SidebarContainer"}>
         <FixedContainer $isSidebarCollapsed={isSidebarCollapsed}>
           <HeaderContainer>
             <Logo isSidebarCollapsed={isSidebarCollapsed}/>
