@@ -8,7 +8,7 @@ function Users () {
 }
 
 Users.getLayout = function getLayout (page: ReactElement) {
-  return <Layout>{page}</Layout>;
+  return <Layout info={"Users"} title={"Users"}>{page}</Layout>;
 };
 
 export default Users;

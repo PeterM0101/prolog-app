@@ -15,7 +15,7 @@ const LogoContainer = styled.div`
 
 const Logo: FC<LogoProps> = ({ isSidebarCollapsed }) => {
   return <LogoContainer>
-    <Image src={isSidebarCollapsed ? LogoSmall : LogoLarge} alt={"logo"} priority/>
+    <Image src={isSidebarCollapsed ? LogoSmall : LogoLarge} alt={"logo"}/>
   </LogoContainer>;
 };
 

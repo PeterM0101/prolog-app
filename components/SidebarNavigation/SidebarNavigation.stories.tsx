@@ -18,6 +18,10 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { SidebarNavigation } from "../SidebarNavigation";
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+`;
 
 const meta: Meta<typeof SidebarNavigation> = {
   component: SidebarNavigation,
@@ -48,7 +52,7 @@ export const Primary: Story = {
     (Story) => {
       // <div style={{ margin: "3em" }}>
       console.log("parameters: ", Story);
-      return <Story/>;
+      return <><GlobalStyle/><Story/></>;
       // </div>
     },
   ],

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import Logo from "./Logo";
+import styled, { css } from "styled-components";
 import Image from "next/image";
 import Close from "../../public/icons/close.svg";
 import Menu from "../../public/icons/menu.svg";
@@ -9,6 +8,8 @@ import { Icons } from "../icons";
 import { Routes } from "../../config/routes";
 import { MenuItemButton } from "@/components/SidebarNavigation/menu-item-button";
 import { MenuItemLink } from "@/components/SidebarNavigation/menu-item-link";
+import { breakpoint, color, space } from "../../styles/theme";
+import Logo from "@/components/SidebarNavigation/Logo";
 
 const menuItems = [
   { text: "Projects", icon: <Icons.projects/>, href: Routes.projects },
@@ -24,39 +25,52 @@ interface SidebarProps {
   $isSidebarCollapsed: boolean;
 }
 
-const SharedContainerStyles = styled.div<SidebarProps>`
+const containerStyles = css`
     width: 100%;
     display: flex;
     flex-direction: column;
-    background: ${({ theme }) => theme.colors.gray[900]};
+    background: ${color("gray", 900)};
     transition: width .15s ease-in-out;
 
-    @media (min-width: 64rem) {
-        width: ${({ $isSidebarCollapsed }) => $isSidebarCollapsed ? "5.1875rem" : "17.5rem"};
+    @media (min-width: ${breakpoint("desktop")}) {
+        width: 17.5rem;
         height: 100vh;
     }
 `;
 
-const SidebarContainer = styled(SharedContainerStyles)``;
+const SidebarContainer = styled.div<SidebarProps>`
+    ${containerStyles};
+    @media (min-width: ${breakpoint("desktop")}) {
+        ${({ $isSidebarCollapsed }) =>
+                $isSidebarCollapsed &&
+                css`
+                    &,
+                    ${FixedContainer} {
+                        width: 5.1875rem;
+                    }
+                `};
+    }
+`;
 
-const FixedContainer = styled(SharedContainerStyles)`
+const FixedContainer = styled.div`
+    ${containerStyles};
     position: fixed;
 `;
 
 const HeaderContainer = styled.header`
     width: calc(100% - 2rem);
-    height: ${({ theme }) => theme.spacing[16]};
+    height: ${space(16)};
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 ${({ theme }) => theme.spacing[4]};
-    background: ${({ theme }) => theme.colors.gray[900]};
+    padding: 0 ${space(4)};
+    background: ${color("gray", 900)};
     position: relative;
     z-index: 33;
 
-    @media (min-width: 64rem) {
+    @media (min-width: ${breakpoint("desktop")}) {
         height: unset;
-        padding: ${({ theme }) => `${theme.spacing[8]} ${theme.spacing[4]} ${theme.spacing[6]}`};
+        padding: ${space(8)} ${space(4)} ${space(6)};
     }
 `;
 
@@ -70,40 +84,40 @@ const MenuOverlay = styled.div<IsMobileMenuOpenProps>`
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: ${({ theme }) => theme.colors.gray[700]};
+    background-color: ${color("gray", 700)};
     z-index: 2;
-    transform: translateX(100%);
-    opacity: 1;
-    transition: opacity 300ms ease-in-out;
-    ${({ $isMobileMenuOpen }) => $isMobileMenuOpen ? `
-      opacity: 0.6;
-      transform: translateX(0);
-    ` : ""};
 
-    @media (min-width: 64rem) {
+    opacity: ${({ $isMobileMenuOpen }) => ($isMobileMenuOpen ? "60%" : "0%")};
+    transform: translateX(
+            ${({ $isMobileMenuOpen }) => ($isMobileMenuOpen ? "0" : "100%")}
+    );
+    transition: opacity 300ms,
+    transform 0s ${({ $isMobileMenuOpen }) => ($isMobileMenuOpen ? "0s" : "300ms")};
+
+    @media (min-width: ${breakpoint("desktop")}) {
         display: none;
     }
 `;
 
 const Nav = styled.nav<IsMobileMenuOpenProps>`
     position: fixed;
-    top: ${({ theme }) => theme.spacing[16]};
+    top: ${space(16)};
     bottom: 0;
     width: 19.5rem;
-    padding: ${({ theme }) => `${theme.spacing[1]} ${theme.spacing[2]} ${theme.spacing[6]}`};
+    padding: ${space(1)} ${space(2)} ${space(6)};
     flex: 1;
     display: flex;
     flex-direction: column;
-    background: ${({ theme }) => theme.colors.gray[900]};
+    background: ${color("gray", 900)};
     z-index: 33;
     transform: ${({ $isMobileMenuOpen }) => $isMobileMenuOpen ? "translateX(0)" : "translateX(-100%)"};
     transition: transform .3s;
 
-    @media (min-width: 64rem) {
+    @media (min-width: ${breakpoint("desktop")}) {
         position: relative;
         top: 0;
         width: calc(100% - 2rem);
-        padding: ${({ theme }) => `${theme.spacing[0]} ${theme.spacing[4]} ${theme.spacing[8]}`};
+        padding: ${space(0)} ${space(4)} ${space(8)};
         transform: none;
     }
 `;
@@ -121,8 +135,8 @@ const List = styled(SharedList)`
 const MobileMenuButton = styled.button`
     background: transparent;
     border: none;
-    outline: none;
-    @media (min-width: 64rem) {
+    //outline: none;
+    @media (min-width: ${breakpoint("desktop")}) {
         display: none;
     }
 `;
@@ -139,15 +153,17 @@ export function SidebarNavigation () {
   return (
     <div>
       <SidebarContainer $isSidebarCollapsed={isSidebarCollapsed} data-testid={"SidebarContainer"}>
-        <FixedContainer $isSidebarCollapsed={isSidebarCollapsed}>
+        <FixedContainer>
           <HeaderContainer>
             <Logo isSidebarCollapsed={isSidebarCollapsed}/>
             <MobileMenuButton
               onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+              data-testid={"MobileMenuButton"}
             >
               <Image
                 src={isMobileMenuOpen ? Close : Menu}
                 alt={isMobileMenuOpen ? "close menu" : "open menu"}
+                data-testid={"MobileMenuButtonIcon"}
               />
             </MobileMenuButton>
           </HeaderContainer>

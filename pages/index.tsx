@@ -8,7 +8,7 @@ function Projects () {
 }
 
 Projects.getLayout = function getLayout (page: ReactElement) {
-  return <Layout>{page}</Layout>;
+  return <Layout title={"Projects"} info={"Projects"}>{page}</Layout>;
 };
 
 export default Projects;

@@ -1,21 +1,9 @@
 // styled.d.ts
 import "styled-components";
+import { theme } from "./styles/theme";
 
-interface Color {
-  [index: string]: string;
-}
-
-interface Colors {
-  [color: string]: Color;
-}
-
-interface Spacing {
-  [index: string]: string;
-}
+type CustomTheme = typeof theme;
 
 declare module "styled-components" {
-  export interface DefaultTheme {
-    spacing: Spacing;
-    colors: Colors;
-  }
+  export interface DefaultTheme extends CustomTheme {}
 }

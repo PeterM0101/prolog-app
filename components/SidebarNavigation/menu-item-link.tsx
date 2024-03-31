@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React, { ReactNode } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { color } from "../../styles/theme";
 
 type MenuItemProps = {
   text: string;
@@ -14,39 +15,56 @@ interface ListItemProps {
   $isActive: boolean;
 }
 
-export const BaseListItem = styled.li`
-    height: ${({ theme }) => theme.spacing[12]};
+export const itemStyles = css`
+    height: ${({ theme }) => theme.space[12]};
     display: flex;
     cursor: pointer;
     align-items: center;
-    border-radius: ${({ theme }) => theme.spacing[1.5]};
-    margin-top: ${({ theme }) => theme.spacing[1]};
-    padding: 0 ${({ theme }) => theme.spacing[3]};
+    border-radius: 6px;
+    margin-top: ${({ theme }) => theme.space[1]};
+    padding: 0 ${({ theme }) => theme.space[3]};
     background: transparent;
     outline: none;
-    color: ${({ theme }) => theme.colors.gray[100]};
+    color: ${color("gray", 100)};
 
     &:first-child {
         margin-top: 0;
     }
 `;
+// export const BaseListItem = styled.li`
+//     height: ${({ theme }) => theme.space[12]};
+//     display: flex;
+//     cursor: pointer;
+//     align-items: center;
+//     border-radius: 6px;
+//     margin-top: ${({ theme }) => theme.space[1]};
+//     padding: 0 ${({ theme }) => theme.space[3]};
+//     background: transparent;
+//     outline: none;
+//     color: ${color("gray", 100)};
+//
+//     &:first-child {
+//         margin-top: 0;
+//     }
+// `;
 
-const ListItem = styled(BaseListItem)<ListItemProps>`
-    background: ${({ $isActive, theme }) => $isActive ? theme.colors.gray[700] : "transparent"}
+const ListItem = styled.li<ListItemProps>`
+    ${itemStyles};
+    background: ${({ $isActive, theme }) => $isActive ? theme.color.gray[700] : "transparent"}
 `;
 
 export const LinkItem = styled(Link)`
     display: flex;
     align-items: center;
-    color: ${({ theme }) => theme.colors.gray[100]};
+    color: ${({ theme }) => theme.color.gray[100]};
     text-decoration: none;
 `;
 
 export const Icon = styled.div`
     position: relative;
-    width: ${({ theme }) => theme.spacing[6]};
-    height: ${({ theme }) => theme.spacing[6]};
-    margin-right: ${({ theme }) => theme.spacing[3]}
+    width: ${({ theme }) => theme.space[6]};
+    height: ${({ theme }) => theme.space[6]};
+    margin-right: ${({ theme }) => theme.space[3]}
 `;
 
 export function MenuItemLink ({

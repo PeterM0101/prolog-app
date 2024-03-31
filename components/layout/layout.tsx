@@ -1,23 +1,74 @@
 import { ReactNode } from "react";
-import { SidebarNavigation } from "../SidebarNavigation";
 import styled from "styled-components";
+import { breakpoint, color, displayFont, space, textFont } from "../../styles/theme";
+import { SidebarNavigation } from "@/components/SidebarNavigation";
+import Head from "next/head";
 
 interface LayoutProps {
   children: ReactNode;
+  title: string;
+  info: string;
 }
 
 const Container = styled.div`
     display: flex;
-    width: 100%;
-    background: ${({ theme }) => theme.colors.gray[400]};
-    height: 100vh;
+    flex-direction: column;
+    background: ${color("gray", 900)};
+
+    @media (min-width: ${breakpoint("desktop")}) {
+        flex-direction: row;
+    }
 `;
 
-const Layout = ({ children }: LayoutProps) => {
+const Main = styled.main`
+    flex: 1;
+`;
+
+const ContentContainer = styled.div`
+    min-height: calc(
+            100vh - 2 * ${space(8)} - ${({ theme }) => theme.size.headerHeight}
+    );
+    margin-top: ${({ theme }) => theme.size.headerHeight};
+    padding: ${space(8, 3)};
+    background: white;
+
+    @media (min-width: ${breakpoint("desktop")}) {
+        min-height: calc(100vh - ${space(3)} - 2 * ${space(8)});
+        margin-top: ${space(3)};
+        padding: ${space(8)};
+        border-top-left-radius: ${space(10)};
+    }
+`;
+
+const Title = styled.h1`
+    margin: ${space(0, 0, 1)};
+    color: ${color("gray", 900)};
+    ${displayFont("sm", "medium")}
+`;
+
+const Info = styled.div`
+    margin-bottom: ${space(8)};
+    color: ${color("gray", 500)};
+    ${textFont("md", "regular")}
+`;
+
+const Layout = ({ children, info, title }: LayoutProps) => {
+  const documentTitle = `ProLog - ${title}`;
   return (
     <Container>
+      <Head>
+        <title>{documentTitle}</title>
+        <meta name="description" content="Error monitoring"/>
+        <link rel="icon" href="/favicon.ico"/>
+      </Head>
       <SidebarNavigation/>
-      {children}
+      <Main>
+        <ContentContainer>
+          <Title>{title}</Title>
+          <Info>{info}</Info>
+          {children}
+        </ContentContainer>
+      </Main>
     </Container>
 
   );

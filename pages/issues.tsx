@@ -8,7 +8,7 @@ function Issues () {
 }
 
 Issues.getLayout = function getLayout (page: ReactElement) {
-  return <Layout>{page}</Layout>;
+  return <Layout info={"Issues"} title={"Issues"}>{page}</Layout>;
 };
 
 export default Issues;

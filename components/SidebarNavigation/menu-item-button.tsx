@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
-import { BaseListItem, Icon } from "./menu-item-link";
+import { Icon, itemStyles } from "./menu-item-link";
 import styled from "styled-components";
+import { Button } from "../../UI/Button";
 
 type MenuItemButtonProps = {
   className?: string;
@@ -14,9 +15,12 @@ interface MenuItemProps {
   $text: string;
 }
 
-const MenuItem = styled(BaseListItem)<MenuItemProps>`
+const MenuItem = styled(Button)<MenuItemProps>`
+    width: 100%;
+    ${itemStyles};
+
     &:hover {
-        background: ${({ theme }) => theme.colors.gray[700]};
+        background: ${({ theme }) => theme.color.gray[700]};
     }
 
     ${({ $text }) => $text === "Collapse" &&
