@@ -113,6 +113,7 @@ const ViewIssuesAnchor = styled(Link)`
 `;
 
 export function ProjectCard ({ project }: ProjectCardProps) {
+  // Comments
   const { name, language, numIssues, numEvents24h, status } = project;
   return (
     <Container>
