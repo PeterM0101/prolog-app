@@ -29,8 +29,8 @@ const config: StorybookConfig = {
   //       ...config.resolve.alias,
   //       "@/config": path.resolve(__dirname, "/config"),
   //     };
-  // Cast the alias property to an index signature type.
-  // const alias = config.resolve.alias as { [index: string]: string };
+  // Cast the alias property to an index.tsx signature type.
+  // const alias = config.resolve.alias as { [index.tsx: string]: string };
   // alias["next/router"] = require.resolve("../__mocks__/next/router.tsx");
   // }
   //   return config;

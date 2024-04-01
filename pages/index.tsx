@@ -1,9 +1,13 @@
 import { ReactElement } from "react";
 import Layout from "@/components/layout/layout";
+import { ProjectCard } from "@/components/ProjectCard";
+import { projects } from "./api/projects";
 
 function Projects () {
   return (
-    <div>Projects</div>
+    <div>Projects
+      <ProjectCard project={projects[0]}/>
+    </div>
   );
 }
 
