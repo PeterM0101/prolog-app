@@ -1,28 +1,28 @@
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import React, {useState} from "react";
+import styled, {css} from "styled-components";
 import Image from "next/image";
 import Close from "../../public/icons/close.svg";
 import Menu from "../../public/icons/menu.svg";
-import { useRouter } from "next/router";
-import { Icons } from "../icons";
-import { Routes } from "../../config/routes";
-import { MenuItemButton } from "@/components/SidebarNavigation/menu-item-button";
-import { MenuItemLink } from "@/components/SidebarNavigation/menu-item-link";
-import { breakpoint, color, space } from "../../styles/theme";
+import {useRouter} from "next/router";
+import {Icons} from "../icons";
+import {Routes} from "../../config/routes";
+import {MenuItemButton} from "@/components/SidebarNavigation/menu-item-button";
+import {MenuItemLink} from "@/components/SidebarNavigation/menu-item-link";
+import {breakpoint, color, space} from "../../styles/theme";
 import Logo from "@/components/SidebarNavigation/Logo";
 
 const menuItems = [
-  { text: "Projects", icon: <Icons.projects/>, href: Routes.projects },
-  { text: "Issues", icon: <Icons.issues/>, href: Routes.issues },
-  { text: "Alerts", icon: <Icons.alert/>, href: Routes.alerts },
-  { text: "Users", icon: <Icons.users/>, href: Routes.users },
-  { text: "Settings", icon: <Icons.settings/>, href: Routes.settings },
+    {text: "Projects", icon: <Icons.projects/>, href: Routes.projects},
+    {text: "Issues", icon: <Icons.issues/>, href: Routes.issues},
+    {text: "Alerts", icon: <Icons.alert/>, href: Routes.alerts},
+    {text: "Users", icon: <Icons.users/>, href: Routes.users},
+    {text: "Settings", icon: <Icons.settings/>, href: Routes.settings},
 ];
 
 type MenuItem = (typeof menuItems)[number];
 
 interface SidebarProps {
-  $isSidebarCollapsed: boolean;
+    $isSidebarCollapsed: boolean;
 }
 
 const containerStyles = css`
@@ -41,7 +41,7 @@ const containerStyles = css`
 const SidebarContainer = styled.div<SidebarProps>`
     ${containerStyles};
     @media (min-width: ${breakpoint("desktop")}) {
-        ${({ $isSidebarCollapsed }) =>
+        ${({$isSidebarCollapsed}) =>
                 $isSidebarCollapsed &&
                 css`
                     &,
@@ -75,7 +75,7 @@ const HeaderContainer = styled.header`
 `;
 
 interface IsMobileMenuOpenProps {
-  $isMobileMenuOpen: boolean;
+    $isMobileMenuOpen: boolean;
 }
 
 const MenuOverlay = styled.div<IsMobileMenuOpenProps>`
@@ -87,12 +87,12 @@ const MenuOverlay = styled.div<IsMobileMenuOpenProps>`
     background-color: ${color("gray", 700)};
     z-index: 2;
 
-    opacity: ${({ $isMobileMenuOpen }) => ($isMobileMenuOpen ? "60%" : "0%")};
+    opacity: ${({$isMobileMenuOpen}) => ($isMobileMenuOpen ? "60%" : "0%")};
     transform: translateX(
-            ${({ $isMobileMenuOpen }) => ($isMobileMenuOpen ? "0" : "100%")}
+            ${({$isMobileMenuOpen}) => ($isMobileMenuOpen ? "0" : "100%")}
     );
     transition: opacity 300ms,
-    transform 0s ${({ $isMobileMenuOpen }) => ($isMobileMenuOpen ? "0s" : "300ms")};
+    transform 0s ${({$isMobileMenuOpen}) => ($isMobileMenuOpen ? "0s" : "300ms")};
 
     @media (min-width: ${breakpoint("desktop")}) {
         display: none;
@@ -110,7 +110,7 @@ const Nav = styled.nav<IsMobileMenuOpenProps>`
     flex-direction: column;
     background: ${color("gray", 900)};
     z-index: 33;
-    transform: ${({ $isMobileMenuOpen }) => $isMobileMenuOpen ? "translateX(0)" : "translateX(-100%)"};
+    transform: ${({$isMobileMenuOpen}) => $isMobileMenuOpen ? "translateX(0)" : "translateX(-100%)"};
     transition: transform .3s;
 
     @media (min-width: ${breakpoint("desktop")}) {
@@ -142,61 +142,62 @@ const MobileMenuButton = styled.button`
 `;
 
 const ArrowWrapper = styled.div<SidebarProps>`
-    transform: ${({ $isSidebarCollapsed }) => $isSidebarCollapsed ? "rotate(180deg)" : "rotate(0)"};
+    transform: ${({$isSidebarCollapsed}) => $isSidebarCollapsed ? "rotate(180deg)" : "rotate(0)"};
     transition: all .3s ease-in-out;
 `;
 
-export function SidebarNavigation () {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const router = useRouter();
-  return (
-    <div>
-      <SidebarContainer $isSidebarCollapsed={isSidebarCollapsed} data-testid={"SidebarContainer"}>
-        <FixedContainer>
-          <HeaderContainer>
-            <Logo isSidebarCollapsed={isSidebarCollapsed}/>
-            <MobileMenuButton
-              onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-              data-testid={"MobileMenuButton"}
-            >
-              <Image
-                src={isMobileMenuOpen ? Close : Menu}
-                alt={isMobileMenuOpen ? "close menu" : "open menu"}
-                data-testid={"MobileMenuButtonIcon"}
-              />
-            </MobileMenuButton>
-          </HeaderContainer>
-          <MenuOverlay $isMobileMenuOpen={isMobileMenuOpen}/>
-          <Nav $isMobileMenuOpen={isMobileMenuOpen}>
-            <List>
-              {menuItems.map((menuItem: MenuItem, index) => (
-                <MenuItemLink
-                  key={index}
-                  {...menuItem}
-                  isCollapsed={isSidebarCollapsed}
-                  isActive={router.pathname === menuItem.href}
-                />
-              ))}
-            </List>
-            <SharedList>
-              <MenuItemButton
-                text="Support"
-                icon={<Icons.support/>}
-                isCollapsed={isSidebarCollapsed}
-                onClick={() => alert("Support")}
-              />
-              <MenuItemButton
-                text="Collapse"
-                icon={<ArrowWrapper $isSidebarCollapsed={isSidebarCollapsed}><Icons.arrowLeft/></ArrowWrapper>}
-                isCollapsed={isSidebarCollapsed}
-                onClick={() => setIsSidebarCollapsed(prevState => !prevState)}
-              />
-            </SharedList>
-          </Nav>
-        </FixedContainer>
-      </SidebarContainer>
-    </div>
-  );
+export function SidebarNavigation() {
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+    const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const router = useRouter();
+    return (
+        <div>
+            <SidebarContainer $isSidebarCollapsed={isSidebarCollapsed} data-testid={"SidebarContainer"}>
+                <FixedContainer>
+                    <HeaderContainer>
+                        <Logo isSidebarCollapsed={isSidebarCollapsed}/>
+                        <MobileMenuButton
+                            onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
+                            data-testid={"MobileMenuButton"}
+                        >
+                            <Image
+                                src={isMobileMenuOpen ? Close as string : Menu as string}
+                                alt={isMobileMenuOpen ? "close menu" : "open menu"}
+                                data-testid={"MobileMenuButtonIcon"}
+                            />
+                        </MobileMenuButton>
+                    </HeaderContainer>
+                    <MenuOverlay $isMobileMenuOpen={isMobileMenuOpen}/>
+                    <Nav $isMobileMenuOpen={isMobileMenuOpen}>
+                        <List>
+                            {menuItems.map((menuItem: MenuItem, index) => (
+                                <MenuItemLink
+                                    key={index}
+                                    {...menuItem}
+                                    isCollapsed={isSidebarCollapsed}
+                                    isActive={router.pathname === menuItem.href}
+                                />
+                            ))}
+                        </List>
+                        <SharedList>
+                            <MenuItemButton
+                                text="Support"
+                                icon={<Icons.support/>}
+                                isCollapsed={isSidebarCollapsed}
+                                onClick={() => alert("Support")}
+                            />
+                            <MenuItemButton
+                                text="Collapse"
+                                icon={<ArrowWrapper
+                                    $isSidebarCollapsed={isSidebarCollapsed}><Icons.arrowLeft/></ArrowWrapper>}
+                                isCollapsed={isSidebarCollapsed}
+                                onClick={() => setIsSidebarCollapsed(prevState => !prevState)}
+                            />
+                        </SharedList>
+                    </Nav>
+                </FixedContainer>
+            </SidebarContainer>
+        </div>
+    );
 };
 

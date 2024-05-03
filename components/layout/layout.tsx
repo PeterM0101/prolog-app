@@ -54,6 +54,7 @@ const Info = styled.div`
 
 const Layout = ({ children, info, title }: LayoutProps) => {
   const documentTitle = `ProLog - ${title}`;
+  console.log("info: ", info);
   return (
     <Container>
       <Head>

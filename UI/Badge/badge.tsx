@@ -1,35 +1,36 @@
 import React from "react";
-import styled, { css } from "styled-components";
-import { color, space, textFont } from "@/styles/theme";
+import styled, {css} from "styled-components";
+import {color, space, textFont} from "@/styles/theme";
 
 export enum BadgeSize {
-  sm = "sm",
-  md = "md",
-  lg = "lg",
+    sm = "sm",
+    md = "md",
+    lg = "lg",
 }
 
 export enum BadgeColor {
-  primary = "primary",
-  gray = "gray",
-  error = "error",
-  warning = "warning",
-  success = "success",
+    primary = "primary",
+    gray = "gray",
+    error = "error",
+    warning = "warning",
+    success = "success",
 }
 
 type BadgeProps = {
-  children: React.ReactNode;
-  size?: BadgeSize;
-  color: BadgeColor;
+    children?: React.ReactNode;
+    size?: BadgeSize;
+    color?: BadgeColor;
 };
 
-interface ContainerProps extends Omit<BadgeProps, "children"> {}
+interface ContainerProps extends Omit<BadgeProps, "children"> {
+}
 
 const Container = styled.div<ContainerProps>`
     width: fit-content;
     display: flex;
     align-items: center;
     border-radius: ${space(4)};
-    ${({ size }) => {
+    ${({size}) => {
         switch (size) {
             case BadgeSize.sm:
                 return css`
@@ -61,13 +62,13 @@ const Container = styled.div<ContainerProps>`
                 `;
             default:
                 return css`
-                    background: ${color(props.color, 50)};
-                    color: ${color(props.color, 700)};
+                    background: ${color("gray", 50)};
+                    color: ${color("gray", 700)};
                 `;
         }
     }}
 `;
 
-export function Badge ({ children, size = BadgeSize.sm, color = BadgeColor.primary }: BadgeProps) {
-  return <Container color={color} size={size}>{children}</Container>;
+export function Badge({children, size = BadgeSize.sm, color = BadgeColor.primary}: BadgeProps) {
+    return <Container color={color} size={size}>{children}</Container>;
 };

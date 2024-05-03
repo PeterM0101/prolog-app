@@ -1,36 +1,36 @@
 import React from "react";
-import { Project, ProjectLanguage, ProjectStatus } from "../../pages/api/projects";
+import {Project, ProjectLanguage, ProjectStatus} from "../../pages/api/projects";
 import reactIcon from "../../public/icons/react.svg";
 import nodeIcon from "../../public/icons/node.svg";
 import pythonIcon from "../../public/icons/python.svg";
 import Image from "next/image";
-import { Badge, BadgeColor } from "../../UI/Badge/badge";
+import {Badge, BadgeColor} from "../../UI/Badge/badge";
 import styled from "styled-components";
-import { color, displayFont, space, textFont } from "@/styles/theme";
+import {color, displayFont, space, textFont} from "@/styles/theme";
 import Link from "next/link";
-import { Routes } from "@/config/routes";
-import { capitalize } from "lodash";
+import {Routes} from "@/config/routes";
+import {capitalize} from "lodash";
 
-const languageIcons: Record<ProjectLanguage, any> = {
-  [ProjectLanguage.react]: <Image src={reactIcon} alt={"react"}/>,
-  [ProjectLanguage.node]: <Image src={nodeIcon} alt={"node"}/>,
-  [ProjectLanguage.python]: <Image src={pythonIcon} alt={"python"}/>,
+export const languageIcons: Record<ProjectLanguage, any> = {
+    ["react"]: <Image src={reactIcon as string} alt={"react"}/>,
+    ["node"]: <Image src={nodeIcon as string} alt={"node"}/>,
+    ["python"]: <Image src={pythonIcon as string} alt={"python"}/>,
 };
 
 type ProjectCardProps = {
-  project: Project;
+    project: Project | null;
 };
 
-const languageNames = {
-  [ProjectLanguage.react]: "React",
-  [ProjectLanguage.node]: "Node.js",
-  [ProjectLanguage.python]: "Python",
+export const languageNames = {
+    [ProjectLanguage.react]: "React",
+    [ProjectLanguage.node]: "Node.js",
+    [ProjectLanguage.python]: "Python",
 };
 
-const statusColors = {
-  [ProjectStatus.stable]: BadgeColor.success,
-  [ProjectStatus.warning]: BadgeColor.warning,
-  [ProjectStatus.critical]: BadgeColor.error,
+export const statusColors = {
+    [ProjectStatus.stable]: BadgeColor.success,
+    [ProjectStatus.warning]: BadgeColor.warning,
+    [ProjectStatus.critical]: BadgeColor.error,
 };
 
 const Container = styled.div`
@@ -112,37 +112,38 @@ const ViewIssuesAnchor = styled(Link)`
     ${textFont("sm", "medium")}
 `;
 
-export function ProjectCard ({ project }: ProjectCardProps) {
-  // Comments
-  const { name, language, numIssues, numEvents24h, status } = project;
-  return (
-    <Container>
-      <TopContainer>
-        <NameAndIconContainer>
-          {/*<LanguageIcon src={`/icons/${language}.svg`} alt={language}/>*/}
-          {languageIcons[project.language]}
-          <div>
-            <Name>{name}</Name>
-            <Language>{languageNames[language]}</Language>
-          </div>
-        </NameAndIconContainer>
-        <InfoContainer>
-          <Issues>
-            <IssuesTitle>Total issues</IssuesTitle>
-            <IssuesNumber>{numIssues}</IssuesNumber>
-          </Issues>
-          <Issues>
-            <IssuesTitle>Last 24h</IssuesTitle>
-            <IssuesNumber>{numEvents24h}</IssuesNumber>
-          </Issues>
-          <Status>
-            <Badge color={statusColors[status]}>{capitalize(status)}</Badge>
-          </Status>
-        </InfoContainer>
-      </TopContainer>
-      <BottomContainer>
-        <ViewIssuesAnchor href={Routes.issues}>View issues</ViewIssuesAnchor>
-      </BottomContainer>
-    </Container>
-  );
+export function ProjectCard({project}: ProjectCardProps) {
+    if (!project) return <p>No data</p>;
+    // Comments
+    const {name, language, numIssues, numEvents24h, status} = project;
+    return (
+        <Container>
+            <TopContainer>
+                <NameAndIconContainer>
+                    {/*<LanguageIcon src={`/icons/${language}.svg`} alt={language}/>*/}
+                    {languageIcons[project.language]}
+                    <div>
+                        <Name>{name}</Name>
+                        <Language>{capitalize(language)}</Language>
+                    </div>
+                </NameAndIconContainer>
+                <InfoContainer>
+                    <Issues>
+                        <IssuesTitle>Total issues</IssuesTitle>
+                        <IssuesNumber>{numIssues}</IssuesNumber>
+                    </Issues>
+                    <Issues>
+                        <IssuesTitle>Last 24h</IssuesTitle>
+                        <IssuesNumber>{numEvents24h}</IssuesNumber>
+                    </Issues>
+                    <Status>
+                        <Badge color={statusColors[status]}>{capitalize(status)}</Badge>
+                    </Status>
+                </InfoContainer>
+            </TopContainer>
+            <BottomContainer>
+                <ViewIssuesAnchor href={Routes.issues}>View issues</ViewIssuesAnchor>
+            </BottomContainer>
+        </Container>
+    );
 }
