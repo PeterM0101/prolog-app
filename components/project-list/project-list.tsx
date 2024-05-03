@@ -42,9 +42,9 @@ export function ProjectList() {
     }
 
     return (
-        <List data-testid={"List"}>
+        <List>
             {data?.items.map((project: Project) => (
-                <ListItem key={project.id}>
+                <ListItem key={project.id} data-testid="project-item">
                     {/* eslint-disable-next-line react/jsx-no-undef */}
                     <ProjectCard project={project}/>
                 </ListItem>

@@ -2,12 +2,11 @@ import {IssueRow} from "@/components/IssueRow/IssueRow";
 import styled from "styled-components";
 import {color, space, textFont} from "@/styles/theme";
 import {useQuery} from "@tanstack/react-query";
-import {getIssues} from "../../services/issues";
 import {getProjects} from "../../services/projects";
 import {Project, ProjectLanguage} from "../../pages/api/projects";
-import {getQueryKey, QueryKey} from "../../utils/getQueryKey";
 import Paginator from "@/components/paginator/paginator";
 import {usePaginator} from "../../utils/hooks/usePaginator";
+import {useGetIssues} from "../../services/useGetIssues";
 
 const Table = styled.table`
     border-collapse: collapse;
@@ -38,12 +37,7 @@ const HeaderCell = styled.th`
 export function IssueList() {
     const {page, navigateToPage} = usePaginator()
 
-    const {data: issues, isLoading: isIssuesLoading, isError: isIssuesError} = useQuery(
-        {
-            queryKey: getQueryKey({queryKey: QueryKey.Issues, page}),
-            queryFn: getIssues.bind(null, page),
-        }
-    );
+    const {data: issues, isLoading: isIssuesLoading, isError: isIssuesError} = useGetIssues(page);
     const {data: projects, isLoading: isProjectsLoading, isError: isProjectsError} = useQuery(
         {
             queryKey: ["getProjects"],

@@ -40,7 +40,7 @@ describe("Issue list", () => {
 
         it("renders the issues", () => {
             cy.get("[data-testid='IssueList']").find("tr").each(($el, index) => {
-                const issue: Issue = mockIssues1.items[index]
+                const issue: Issue = mockIssues1.items[index] as any
                 const firstLineOfStackTrace = issue.stack.split("\n")[1].trim();
                 cy.wrap($el).contains(issue.name)
                 cy.wrap($el).contains(issue.message)

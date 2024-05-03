@@ -62,8 +62,8 @@ const Container = styled.div<ContainerProps>`
                 `;
             default:
                 return css`
-                    background: ${color(props.color, 50)};
-                    color: ${color(props.color, 700)};
+                    background: ${color("gray", 50)};
+                    color: ${color("gray", 700)};
                 `;
         }
     }}

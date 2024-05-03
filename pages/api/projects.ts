@@ -44,7 +44,9 @@ export default function handler(
     req: NextApiRequest,
     res: NextApiResponse<Page<Project>>,
 ) {
-    const {page = 1, limit = 8} = req.query;
+    const {page: pageString = '1', limit: limitString = '8'} = req.query;
+    const page = Number(pageString);
+    const limit = Number(limitString);
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
     const paginatedItems = projects.slice(startIndex, endIndex);
@@ -53,7 +55,7 @@ export default function handler(
         meta: getPageMeta({page, limit, totalItems: projects.length})
     }
 
-    setTimeout(() => {
-        res.status(200).json(data);
-    }, 2000);
+    // setTimeout(() => {
+    res.status(200).json(data);
+    // }, 2000);
 }

@@ -1,5 +1,5 @@
 import type {Meta, StoryObj} from "@storybook/react";
-import {ProjectLanguage, ProjectStatus} from "../../pages/api/projects";
+import {ProjectLanguage} from "../../pages/api/projects";
 import {IssueRow} from "@/components/IssueRow/IssueRow";
 import {IssueLevel} from "@/components/IssueRow/issue.types";
 
@@ -27,14 +27,7 @@ type Story = StoryObj<typeof IssueRow>;
 
 export const Simple: Story = {
     args: {
-        project: {
-            id: "1",
-            name: "Frontend - Web",
-            language: ProjectLanguage.react,
-            numIssues: 420,
-            numEvents24h: 721,
-            status: ProjectStatus.critical
-        },
+        projectLanguage: ProjectLanguage.react,
         issue: {
             id: "c9613c41-32f0-435e-aef2-b17ce758431b",
             projectId: "6d5fff43-d691-445d-a41a-7d0c639080e6",

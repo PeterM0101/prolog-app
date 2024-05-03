@@ -230,7 +230,9 @@ export default function handler(
     req: NextApiRequest,
     res: NextApiResponse<Page<Issue>>,
 ) {
-    const {page = 1, limit = 8} = req.query;
+    const {page: pageString = '1', limit: limitString = '8'} = req.query;
+    const page = Number(pageString);
+    const limit = Number(limitString);
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
     const paginatedItems = items.slice(startIndex, endIndex);

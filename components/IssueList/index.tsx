@@ -1,1 +1,1 @@
-export {IssueList, IssueListProps} from "../IssueList/issue-list";
+export {IssueList} from "../IssueList/issue-list";
