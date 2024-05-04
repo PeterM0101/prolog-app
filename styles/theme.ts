@@ -249,6 +249,7 @@ export const theme = {
 };
 
 export function color(name: keyof Theme["color"], shade: keyof Color) {
+    // add comments
     return ({theme}: { theme: Theme }) => theme.color[name][shade];
 }
 
